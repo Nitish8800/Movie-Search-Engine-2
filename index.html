@@ -4,100 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Movie</title>
 
-    <style>
-      #result {
-        background-color: rgb(245, 228, 245);
-        width: 30%;
-        justify-content: center;
-        margin: auto;
-        border: 3px dashed rgb(0, 68, 255);
-      }
-
-      #item {
-        margin: auto;
-        text-align: center;
-        margin-top: 2%;
-      }
-
-      img {
-        width: 100%;
-        height: 350px;
-        display: block;
-        margin: 2%;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      body {
-        background-image: url("https://i.giphy.com/media/Ha6xdymclg2pBgwuw3/giphy.webp");
-      }
-      h1 {
-        text-align: center;
-        color: rgb(255, 72, 0);
-      }
-      h2 {
-        text-align: center;
-        color: rgb(255, 60, 0);
-      }
-      h3 {
-        text-align: center;
-        color: rgb(0, 38, 255);
-      }
-
-      button {
-        cursor: pointer;
-        width: 120px;
-        height: 50px;
-        font-size: 26px;
-        font-family: "Alegreya Sans SC", sans-serif;
-        display: inlline-block;
-        margin: auto;
-        transition: all 0.3s;
-      }
-
-      button:hover {
-        transition: all 0.2s;
-      }
-
-      button:focus {
-        outline: none;
-      }
-
-      button:active {
-        transition: none; /* So when you tap, effect is instant */
-        padding: 0; /* Firefox adds padding because it's a special sausage */
-      }
-
-      body > div:nth-child(1) > button:nth-child(2) {
-        color: #1cb;
-        background-color: white;
-        border: 5px solid rgba(0, 0, 0, 0);
-        border-radius: 50%;
-        transition: all 0.3s;
-      }
-
-      body > div:nth-child(1) > button:nth-child(2):active {
-        transform: rotate(360deg);
-        transition: none;
-      }
-
-      #search {
-        margin: 2% auto;
-        /* display: block; */
-        padding: 10px 12px;
-        border: 1px solid violet;
-      }
-
-      #btun {
-        width: 100%;
-        text-align: center;
-        padding: 12px 15px;
-        background-color: blue;
-        color: yellow;
-      }
-    </style>
+    <link rel="stylesheet" href="index.css">
+  
   </head>
   <body>
     <div id="item">
@@ -105,7 +15,8 @@
         type="text"
         id="search"
         placeholder="search movie name"
-        oninput="getMovie()"  onkeypress="getMovie()"
+        oninput="getMovie()"
+        onkeypress="getMovie()"
       />
       <button onclick="getMovie()" id="btn">Search</button>
     </div>
@@ -113,64 +24,4 @@
   </body>
 </html>
 
-<script>
-  function getMovie() {
-    let movie = document.getElementById("search").value;
-
-    async function makeRequest() {
-      let res = await fetch(
-        `http://www.omdbapi.com/?apikey=381f166f&t=${movie}`
-      );
-      let data = await res.json();
-      appendMovie(data);
-      console.log(data);
-    }
-    makeRequest();
-  }
-
-  let movie = document.getElementById("result");
-
-  function appendMovie(movieData) {
-    movie.textContent = "";
-    console.log(movieData);
-    if (movieData.Poster == undefined) {
-      let div = document.createElement("div");
-      let img = document.createElement("img");
-      img.src =
-        "https://media1.giphy.com/media/TqiwHbFBaZ4ti/200w.webp?cid=ecf05e47cf847n5wgobf6e6gculu9qfci73wh59f12mivl7l&rid=200w.webp&ct=g";
-
-      div.append(img);
-
-      movie.append(div);
-
-      return;
-    } else {
-      if (movieData.Poster != "N/A") {
-        div = document.createElement("div");
-
-        image = document.createElement("img");
-        image.src = movieData.Poster;
-
-        let Year = document.createElement("h3");
-        Year.innerHTML = `${movieData.Released}`;
-
-        let title = document.createElement("h2");
-        title.innerHTML = movieData.Title;
-
-        let RateThemovie = document.createElement("h2");
-        RateThemovie.innerHTML = `⭐ ${movieData.imdbRating}`;
-
-        if (movieData.imdbRating > 8.5) {
-          let re = document.createElement("button");
-          re.innerHTML = "RECOMMENDED";
-          re.id = "btun";
-
-          div.append(image, title, Year, RateThemovie, re);
-        } else {
-          div.append(image, title, Year, RateThemovie);
-        }
-        movie.append(div);
-      }
-    }
-  }
-</script>
+<script src="index.js"></script>
